@@ -58,6 +58,7 @@ function updateSpeedScale(delta) {
 // Find the screen dimensions and set the game dimensions according to this.
 function setPixelToWorldScale() {
   let worldToPixelScale;
+
   if (window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT) {
     worldToPixelScale = window.innerWidth / WORLD_WIDTH;
   } else {
