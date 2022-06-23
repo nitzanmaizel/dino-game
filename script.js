@@ -1,4 +1,4 @@
-import { setupDino, updateDino } from "./dino.js";
+import { setupDino, setDinoLose, updateDino, getDinoRect } from "./dino.js";
 import { setupGround, updateGround } from "./ground.js";
 import { updateCactus, setupCactus, getCactusRects } from "./cactus.js";
 
@@ -33,6 +33,10 @@ function update(time) {
   updateDino(delta, speedScale);
   updateCactus(delta, speedScale);
 
+  if (checkLose()) {
+    return handleLose();
+  }
+
   lastTime = time;
   window.requestAnimationFrame(update);
 }
@@ -49,6 +53,23 @@ function handleStart() {
 
   startScreenElem.classList.add("hide");
   window.requestAnimationFrame(update);
+}
+
+function checkLose() {
+  const dinoRect = getDinoRect();
+  return getCactusRects().some((cactusRect) => isCollision(cactusRect, dinoRect));
+}
+
+function handleLose() {
+  setDinoLose();
+  setTimeout(() => {
+    document.addEventListener("keydown", handleStart, { once: true });
+    startScreenElem.classList.remove("hide");
+  }, 200);
+}
+
+function isCollision(cactusRect, dinoRect) {
+  return cactusRect.left < dinoRect.right && cactusRect.top < dinoRect.bottom && cactusRect.right > dinoRect.left && cactusRect.bottom > dinoRect.top;
 }
 
 // Update score based on delta - ratio: 10 points every 1sec
