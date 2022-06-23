@@ -27,11 +27,12 @@ function handleRun(delta, speedScale) {
     dinoElem.src = `imgs/dino-stationary.png`;
     return;
   }
-
+  // After FRAME_TIME is passed change the dino source image
   if (currentFrameTime >= FRAME_TIME) {
-    dinoFrame = (dinoFrame + 1) % DINO_FRAME_COUNT;
+    // dinoFrame will change between 1 and 0
+    dinoFrame = (dinoFrame + 1) % DINO_FRAME_COUNT; // (0+1) % 2 = 1 || (1+1) % 2 = 0
     dinoElem.src = `imgs/dino-run-${dinoFrame}.png`;
-    currentFrameTime -= FRAME_TIME;
+    currentFrameTime -= FRAME_TIME; // reset frame time
   }
 
   currentFrameTime += delta * speedScale;
