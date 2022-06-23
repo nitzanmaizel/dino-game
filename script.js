@@ -1,5 +1,6 @@
 import { setupDino, updateDino } from "./dino.js";
 import { setupGround, updateGround } from "./ground.js";
+import { updateCactus, setupCactus, getCactusRects } from "./cactus.js";
 
 const WORLD_WIDTH = 100;
 const WORLD_HEIGHT = 30;
@@ -30,6 +31,7 @@ function update(time) {
   updateScore(delta);
   updateSpeedScale(delta);
   updateDino(delta, speedScale);
+  updateCactus(delta, speedScale);
 
   lastTime = time;
   window.requestAnimationFrame(update);
@@ -43,6 +45,7 @@ function handleStart() {
 
   setupGround();
   setupDino();
+  setupCactus();
 
   startScreenElem.classList.add("hide");
   window.requestAnimationFrame(update);
