@@ -13,6 +13,8 @@ let yVelocity;
 
 export function setupDino() {
   isJumping = false;
+  dinoFrame = 0;
+  currentFrameTime = 0;
 }
 
 export function updateDino(delta, speedScale) {
@@ -20,7 +22,7 @@ export function updateDino(delta, speedScale) {
   handleJump(delta);
 }
 
-function handleRun() {
+function handleRun(delta, speedScale) {
   if (isJumping) {
     dinoElem.src = `imgs/dino-stationary.png`;
     return;
@@ -31,6 +33,7 @@ function handleRun() {
     dinoElem.src = `imgs/dino-run-${dinoFrame}.png`;
     currentFrameTime -= FRAME_TIME;
   }
+
   currentFrameTime += delta * speedScale;
 }
 
