@@ -1,3 +1,5 @@
+import { setupGround, updateGround } from "./ground.js";
+
 const WORLD_WIDTH = 100;
 const WORLD_HEIGHT = 30;
 
@@ -6,8 +8,8 @@ const scoreElem = document.querySelector("[data-score]");
 const startScreenElem = document.querySelector("[data-start-screen]");
 
 setPixelToWorldScale();
-window.requestAnimationFrame(update);
 window.addEventListener("resize", setPixelToWorldScale);
+document.addEventListener("keydown", handleStart, { once: true });
 
 // Find the screen dimensions and set the game dimensions according to this.
 function setPixelToWorldScale() {
@@ -34,7 +36,19 @@ function update(time) {
     return;
   }
   const delta = time - lastTime;
+  updateGround(delta, speedScale);
 
   lastTime = time;
+  window.requestAnimationFrame(update);
+}
+
+// Start the game
+function handleStart() {
+  lastTime = null;
+  speedScale = 1;
+  score = 0;
+  setupGround();
+
+  startScreenElem.classList.add("hide");
   window.requestAnimationFrame(update);
 }
