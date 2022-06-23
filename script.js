@@ -12,19 +12,6 @@ setPixelToWorldScale();
 window.addEventListener("resize", setPixelToWorldScale);
 document.addEventListener("keydown", handleStart, { once: true });
 
-// Find the screen dimensions and set the game dimensions according to this.
-function setPixelToWorldScale() {
-  let worldToPixelScale;
-  if (window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT) {
-    worldToPixelScale = window.innerWidth / WORLD_WIDTH;
-  } else {
-    worldToPixelScale = window.innerHeight / WORLD_HEIGHT;
-  }
-
-  worldElem.style.width = `${WORLD_WIDTH * worldToPixelScale}px`;
-  worldElem.style.height = `${WORLD_HEIGHT * worldToPixelScale}px`;
-}
-
 // Update elements based on the time between frames and the speed scale
 let lastTime;
 let speedScale;
@@ -64,7 +51,19 @@ function updateScore(delta) {
 }
 
 // Update the game speed after time
-
 function updateSpeedScale(delta) {
   speedScale += delta * SPEED_SCALE_INCREASE;
+}
+
+// Find the screen dimensions and set the game dimensions according to this.
+function setPixelToWorldScale() {
+  let worldToPixelScale;
+  if (window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT) {
+    worldToPixelScale = window.innerWidth / WORLD_WIDTH;
+  } else {
+    worldToPixelScale = window.innerHeight / WORLD_HEIGHT;
+  }
+
+  worldElem.style.width = `${WORLD_WIDTH * worldToPixelScale}px`;
+  worldElem.style.height = `${WORLD_HEIGHT * worldToPixelScale}px`;
 }
