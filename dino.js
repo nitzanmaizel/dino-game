@@ -67,3 +67,7 @@ function onJump(e) {
   yVelocity = JUMP_SPEED;
   isJumping = true;
 }
+
+export function setDinoLose() {
+  dinoElem.src = "imgs/dino-lose.png";
+}
