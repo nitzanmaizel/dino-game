@@ -32,3 +32,11 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.start-screen > ul {
+  list-style: none;
+}
+
+.start-screen > ul > li:last-child {
+  color: red;
+}
