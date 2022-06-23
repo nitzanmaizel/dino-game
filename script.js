@@ -2,6 +2,7 @@ import { setupGround, updateGround } from "./ground.js";
 
 const WORLD_WIDTH = 100;
 const WORLD_HEIGHT = 30;
+const SPEED_SCALE_INCREASE = 0.00001;
 
 const worldElem = document.querySelector("[data-world]");
 const scoreElem = document.querySelector("[data-score]");
@@ -39,6 +40,7 @@ function update(time) {
 
   updateGround(delta, speedScale);
   updateScore(delta);
+  updateSpeedScale(delta);
 
   lastTime = time;
   window.requestAnimationFrame(update);
@@ -59,4 +61,10 @@ function handleStart() {
 function updateScore(delta) {
   score += delta * 0.01;
   scoreElem.textContent = Math.floor(score);
+}
+
+// Update the game speed after time
+
+function updateSpeedScale(delta) {
+  speedScale += delta * SPEED_SCALE_INCREASE;
 }
