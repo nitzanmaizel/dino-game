@@ -6,9 +6,10 @@ const scoreElem = document.querySelector("[data-score]");
 const startScreenElem = document.querySelector("[data-start-screen]");
 
 setPixelToWorldScale();
-
+window.requestAnimationFrame(update);
 window.addEventListener("resize", setPixelToWorldScale);
 
+// Find the screen dimensions and set the game dimensions according to this.
 function setPixelToWorldScale() {
   let worldToPixelScale;
   if (window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT) {
@@ -19,4 +20,21 @@ function setPixelToWorldScale() {
 
   worldElem.style.width = `${WORLD_WIDTH * worldToPixelScale}px`;
   worldElem.style.height = `${WORLD_HEIGHT * worldToPixelScale}px`;
+}
+
+// Update elements based on the time between frames and the speed scale
+let lastTime;
+let speedScale;
+let score;
+
+function update(time) {
+  if (lastTime == null) {
+    lastTime = time;
+    window.requestAnimationFrame(update);
+    return;
+  }
+  const delta = time - lastTime;
+
+  lastTime = time;
+  window.requestAnimationFrame(update);
 }
