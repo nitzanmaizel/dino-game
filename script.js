@@ -35,8 +35,10 @@ function update(time) {
     window.requestAnimationFrame(update);
     return;
   }
-  const delta = time - lastTime;
+  const delta = time - lastTime; // The time between frames
+
   updateGround(delta, speedScale);
+  updateScore(delta);
 
   lastTime = time;
   window.requestAnimationFrame(update);
@@ -51,4 +53,10 @@ function handleStart() {
 
   startScreenElem.classList.add("hide");
   window.requestAnimationFrame(update);
+}
+
+// Update score based on delta - ratio: 10 points every 1sec
+function updateScore(delta) {
+  score += delta * 0.01;
+  scoreElem.textContent = Math.floor(score);
 }
